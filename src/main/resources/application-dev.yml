@@ -4,7 +4,6 @@ spring:
       on-profile: dev
 
   datasource:
-    url:  jdbc:h2:mem:kafkaproducerDB
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
