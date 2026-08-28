@@ -1,23 +1,16 @@
 server:
   port: 9999
-
 spring:
   application:
     name: kafka
-
   datasource:
     driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
   jpa:
     hibernate:
       ddl-auto: update
-
   h2:
     console:
       enabled: true
-
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
