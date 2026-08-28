@@ -19,5 +19,4 @@ public class ProductController {
 		producer.sendMessage(message);
 		return "Message Published";
 	}
-
 }

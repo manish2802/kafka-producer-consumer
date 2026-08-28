@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  namespace: kafka
+
+spec:
+
+  serviceName: kafka-headless
+
+  replicas: 3
+
+  podManagementPolicy: OrderedReady
+
+  selector:
+    matchLabels:
+      app: kafka
+
+  template:
+
+    metadata:
+      labels:
+        app: kafka
+
+    spec:
+
+      terminationGracePeriodSeconds: 120
+
+      containers:
+
+        - name: kafka
+
+          image: apache/kafka:4.0.0
+
+          ports:
+
+            - name: broker
+              containerPort: 9092
+
+            - name: controller
+              containerPort: 9093
+
+          envFrom:
+
+            - configMapRef:
+                name: kafka-config
+
+          env:
+
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+          command:
+
+            - /bin/bash
+
+            - -c
+
+          args:
+
+            - |
+
+              ORDINAL=${HOSTNAME##*-}
+
+              NODE_ID=$((ORDINAL + 1))
+
+              export KAFKA_NODE_ID=${NODE_ID}
+
+              export KAFKA_ADVERTISED_LISTENERS="PLAINTEXT://${HOSTNAME}.kafka-headless.kafka.svc.cluster.local:9092"
+
+              echo "===================================="
+              echo "Kafka Pod       : ${HOSTNAME}"
+              echo "Kafka Node ID   : ${KAFKA_NODE_ID}"
+              echo "Advertised      : ${KAFKA_ADVERTISED_LISTENERS}"
+              echo "===================================="
+
+              exec /etc/kafka/docker/run
+
+          volumeMounts:
+
+            - name: kafka-data
+              mountPath: /var/lib/kafka/data
+
+  volumeClaimTemplates:
+
+    - metadata:
+        name: kafka-data
+
+      spec:
+
+        accessModes:
+          - ReadWriteOnce
+
+        resources:
+
+          requests:
+            storage: 10Gi
