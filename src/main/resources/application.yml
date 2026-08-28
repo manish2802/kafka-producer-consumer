@@ -3,8 +3,6 @@ server:
 spring:
   application:
     name: kafka
-  datasource:
-    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: update
