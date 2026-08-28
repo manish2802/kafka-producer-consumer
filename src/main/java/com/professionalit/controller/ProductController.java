@@ -9,15 +9,15 @@ import com.professionalit.kafka.producer.KafkaProducerService;
 
 @RestController
 public class ProductController {
-	
+
 	@Autowired
-	private  KafkaProducerService producer;
-	
+	private KafkaProducerService producer;
+
 	@PostMapping("/send")
 	public String publish(@RequestParam("message") String message) {
+		System.out.println("Message: :" + message);
 		producer.sendMessage(message);
 		return "Message Published";
 	}
-
 
 }
