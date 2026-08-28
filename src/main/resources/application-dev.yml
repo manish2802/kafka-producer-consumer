@@ -6,6 +6,6 @@ spring:
     url: jdbc:h2:mem:kafkab
     driver-class-name: org.h2.Driver
     username: ${DB_USERNAME:sa"}
-    password: ${DB_PASSWORD:""}
+    password: ${DB_PASSWORD:}
   kafka:
     bootstrap-servers: dev-kafka:9092
