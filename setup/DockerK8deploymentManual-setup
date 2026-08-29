@@ -130,6 +130,19 @@ docker run -d \
   -e KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0 \
   -e KAFKA_NUM_PARTITIONS=3 \
   apache/kafka:4.0.0
+  
+  
+  
+  
+  
+  git clone https://github.com/manish2802/kafka-producer-consumer.git
+  cd kafka-producer-consumer
+  kubectl apply -f k8s/configmap.yaml
+  kubectl apply -f k8s/kafka-headless-service.yaml
+  kubectl apply -f k8s/kafka-service.yaml
+  kubectl apply -f k8s/kafka-statefulset.yaml
+   kubectl apply -f k8s/kafka-ui.yaml
+   kubectl get all -n kafka
  
  
       
