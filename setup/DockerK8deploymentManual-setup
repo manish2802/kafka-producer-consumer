@@ -137,12 +137,19 @@ docker run -d \
   
   git clone https://github.com/manish2802/kafka-producer-consumer.git
   cd kafka-producer-consumer
-  kubectl apply -f k8s/configmap.yaml
-  kubectl apply -f k8s/kafka-headless-service.yaml
-  kubectl apply -f k8s/kafka-service.yaml
-  kubectl apply -f k8s/kafka-statefulset.yaml
-   kubectl apply -f k8s/kafka-ui.yaml
+  kubectl apply -f k8s/kafka/configmap.yaml
+  kubectl apply -f k8s/kafka/kafka-headless-service.yaml
+  kubectl apply -f k8s/kafka/kafka-service.yaml
+  kubectl apply -f k8s/kafka/kafka-statefulset.yaml
+   kubectl apply -f k8s/kafka/kafka-ui.yaml
    kubectl get all -n kafka
+   
+   
+git clone https://github.com/manish2802/kafka-producer-consumer.git
+cd kafka-producer-consumer
+kubectl apply -f k8s/tracing/jaeger-deployment.yaml
+kubectl apply -f k8s/tracing/jaeger-service.yaml
+kubectl get all -n observability
  
  
       
