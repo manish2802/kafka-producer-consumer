@@ -137,6 +137,7 @@ docker run -d \
   
   git clone https://github.com/manish2802/kafka-producer-consumer.git
   cd kafka-producer-consumer
+  kubectl apply -f k8s/kafka/namespace.yaml
   kubectl apply -f k8s/kafka/configmap.yaml
   kubectl apply -f k8s/kafka/kafka-headless-service.yaml
   kubectl apply -f k8s/kafka/kafka-service.yaml
@@ -147,6 +148,7 @@ docker run -d \
    
 git clone https://github.com/manish2802/kafka-producer-consumer.git
 cd kafka-producer-consumer
+kubectl create namespace observability
 kubectl apply -f k8s/tracing/jaeger-deployment.yaml
 kubectl apply -f k8s/tracing/jaeger-service.yaml
 kubectl get all -n observability
